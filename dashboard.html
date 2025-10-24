@@ -1,4 +1,4 @@
-<!-- Bloque 2: dashboard.html -->
+<!-- dashboard.html -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -6,33 +6,214 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Dashboard</title>
 <style>
-body { font-family: Arial, sans-serif; text-align: center; margin: 2rem; }
-a, button { padding: 0.5rem 1rem; margin: 0.5rem; font-size: 1rem; display: inline-block; }
+/* Reset y base */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #7121D1, #9B5DE5);
+  color: #ffffff;
+}
+
+/* Header con logo y botón Logout */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 30px;
+  background-color: rgba(113,33,209,0.95);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+header img.logo {
+  max-width: 120px;
+  border-radius: 50%;
+  border: 3px solid #ffffff;
+}
+
+header button.logout-button {
+  background-color: #ffcc00;
+  color: #7121D1;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+header button.logout-button:hover {
+  background-color: #e6b800;
+}
+
+/* Layout principal: menú + contenido */
+.main-container {
+  display: flex;
+  flex: 1;
+  min-height: calc(100vh - 90px);
+}
+
+/* Menú lateral */
+.sidebar {
+  width: 220px;
+  background-color: rgba(0,0,0,0.3);
+  padding: 20px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.sidebar .user-info {
+  margin-bottom: 20px;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sidebar .user-info p {
+  margin: 0;
+  font-weight: bold;
+}
+
+/* Botón Meet en sidebar */
+.sidebar .user-info a.meet-button {
+  display: inline-block;
+  cursor: pointer;
+}
+
+.sidebar .user-info a.meet-button img {
+  height: 35px;
+}
+
+/* Opciones del menú */
+.sidebar nav a {
+  display: block;
+  padding: 10px 15px;
+  margin-bottom: 5px;
+  color: #ffffff;
+  text-decoration: none;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.sidebar nav a:hover, .sidebar nav a.active {
+  background-color: #ffcc00;
+  color: #7121D1;
+}
+
+/* Contenido central */
+.content {
+  flex: 1;
+  padding: 30px;
+  box-sizing: border-box;
+  background-color: rgba(113,33,209,0.8);
+  overflow-y: auto;
+  border-left: 1px solid rgba(255,255,255,0.2);
+}
+
+/* Títulos y párrafos */
+h1, h2 {
+  margin-top: 0;
+}
+
+p {
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .main-container {
+    flex-direction: column;
+  }
+  .sidebar {
+    width: 100%;
+    flex-direction: row;
+    overflow-x: auto;
+  }
+  .sidebar nav a {
+    margin-right: 10px;
+    margin-bottom: 0;
+  }
+  .content {
+    border-left: none;
+  }
+  header {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
 </style>
 </head>
 <body>
-<h1>Dashboard - Usuarios logueados</h1>
-<p>Contenido protegido solo para usuarios registrados.</p>
+<header>
+  <img src="https://i.postimg.cc/py3XsTWd/logo.png" alt="Logo Comité" class="logo">
+  <button class="logout-button" onclick="logout()">Logout</button>
+</header>
 
-
-<a href="https://meet.google.com/ntx-ytxr-hap" target="_blank">Unirse a la videollamada</a><br>
-<button onclick="logout()">Logout</button>
-
+<div class="main-container">
+  <aside class="sidebar">
+    <div class="user-info">
+      <p id="user-email">Usuario: </p>
+      <a href="https://meet.google.com/ntx-ytxr-hap" target="_blank" class="meet-button">
+        <img src="/images/meet-logo.png" alt="Google Meet">
+      </a>
+    </div>
+    <nav>
+      <a href="#" class="active" onclick="showContent('Opción 1')">Opción 1</a>
+      <a href="#" onclick="showContent('Opción 2')">Opción 2</a>
+      <a href="#" onclick="showContent('Opción 3')">Opción 3</a>
+      <a href="#" onclick="showContent('Opción 4')">Opción 4</a>
+      <a href="#" onclick="showContent('Opción 5')">Opción 5</a>
+      <a href="#" onclick="showContent('Opción 6')">Opción 6</a>
+      <a href="#" onclick="showContent('Opción 7')">Opción 7</a>
+      <a href="#" onclick="showContent('Opción 8')">Opción 8</a>
+      <a href="#" onclick="showContent('Opción 9')">Opción 9</a>
+      <a href="#" onclick="showContent('Opción 10')">Opción 10</a>
+    </nav>
+  </aside>
+  
+  <section class="content" id="content-area">
+    <h2>Bienvenido</h2>
+    <p>Selecciona una opción del menú para ver el contenido aquí.</p>
+  </section>
+</div>
 
 <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 <script>
 netlifyIdentity.init();
 
+// Mostrar email del usuario logueado
+netlifyIdentity.on("login", user => {
+  document.getElementById("user-email").innerText = "Usuario: " + user.email;
+});
 
+// Logout
 function logout() {
-netlifyIdentity.logout();
-window.location.href = "/index.html";
+  netlifyIdentity.logout();
+  window.location.href = "/index.html";
 }
 
-
 netlifyIdentity.on("logout", () => {
-console.log("Usuario desconectado");
+  console.log("Usuario desconectado");
 });
+
+// Función para mostrar contenido según la opción del menú
+function showContent(text) {
+  document.getElementById("content-area").innerHTML = `
+    <h2>${text}</h2>
+    <p>Contenido correspondiente a ${text}.</p>
+  `;
+  // Marcar enlace activo
+  const links = document.querySelectorAll('.sidebar nav a');
+  links.forEach(link => link.classList.remove('active'));
+  event.target.classList.add('active');
+}
 </script>
 </body>
 </html>
