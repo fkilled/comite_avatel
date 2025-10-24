@@ -5,8 +5,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Dashboard</title>
+<link rel="icon" type="image/x-icon" href="/images/favicon.ico">
 <style>
-/* Reset y base */
+/* Reset básico */
 body {
   font-family: Arial, sans-serif;
   margin: 0;
@@ -14,11 +15,11 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background: linear-gradient(135deg, #9B5DE5, #C084FC); /* fondo morado claro */
+  background: linear-gradient(135deg, #9B5DE5, #C084FC);
   color: #000000;
 }
 
-/* Header con logo, título y Logout */
+/* Header */
 header {
   display: flex;
   justify-content: space-between;
@@ -34,7 +35,6 @@ header img.logo {
   border: 3px solid #ffffff;
 }
 
-/* Título moderno con efecto 3D y degradado */
 .dashboard-title {
   font-family: 'Arial Black', Arial, sans-serif;
   font-size: 1.6rem;
@@ -42,7 +42,7 @@ header img.logo {
   background: linear-gradient(45deg, #7121D1, #C084FC);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.4); /* efecto 3D sutil */
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.4);
   flex: 1;
   margin: 0 20px;
 }
@@ -62,19 +62,18 @@ header button.logout-button:hover {
   background-color: #e6b800;
 }
 
-/* Layout principal: menú + contenido */
+/* Layout principal: sidebar + contenido */
 .main-container {
   display: flex;
   flex: 1;
   min-height: calc(100vh - 90px);
 }
 
-/* Sidebar lateral */
+/* Sidebar */
 .sidebar {
   width: 220px;
-  background-color: rgba(0,0,0,0.3); /* más oscuro que el fondo */
+  background-color: rgba(0,0,0,0.3);
   padding: 20px;
-  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -82,7 +81,6 @@ header button.logout-button:hover {
 
 .sidebar .user-info {
   margin-bottom: 20px;
-  text-align: left;
   display: flex;
   flex-direction: column;
   gap: 15px;
@@ -91,26 +89,20 @@ header button.logout-button:hover {
 .sidebar .user-info p {
   margin: 0;
   font-weight: bold;
-  color: #000000; /* texto negro */
-}
-
-/* Botón Google Meet en sidebar */
-.sidebar .user-info a.meet-button {
-  display: inline-block;
-  cursor: pointer;
+  color: #000000;
 }
 
 .sidebar .user-info a.meet-button img {
-  height: 120px; /* tamaño grande */
+  height: 120px;
   width: auto;
 }
 
-/* Opciones del menú */
+/* Menú lateral */
 .sidebar nav a {
   display: block;
   padding: 10px 15px;
   margin-bottom: 5px;
-  color: #000000; /* texto negro */
+  color: #000000;
   text-decoration: none;
   border-radius: 6px;
   transition: all 0.2s ease;
@@ -125,28 +117,45 @@ header button.logout-button:hover {
 .content {
   flex: 1;
   padding: 30px;
-  box-sizing: border-box;
-  background-color: rgba(255,255,255,0.6); /* más claro que sidebar */
+  background-color: rgba(255,255,255,0.6);
   overflow-y: auto;
   border-left: 1px solid rgba(0,0,0,0.2);
   color: #000000;
 }
 
 /* Títulos y párrafos */
-h1, h2 {
-  margin-top: 0;
+h1, h2 { margin-top: 0; }
+p { font-size: 1rem; line-height: 1.5; }
+
+/* Botones tipo call-to-action */
+a.button {
+  display: inline-block;
+  padding: 12px 30px;
+  margin-top: 20px;
+  background-color: #ffcc00;
+  color: #7121D1;
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  transition: all 0.3s ease;
 }
 
-p {
-  font-size: 1rem;
-  line-height: 1.5;
+a.button:hover {
+  background-color: #e6b800;
+  transform: translateY(-2px);
+}
+
+/* Footer interno del contenedor */
+.container .footer {
+  margin-top: 25px;
+  font-size: 0.9rem;
+  color: #f0e6ff;
 }
 
 /* Responsive */
 @media (max-width: 768px) {
-  .main-container {
-    flex-direction: column;
-  }
+  .main-container { flex-direction: column; }
   .sidebar {
     width: 100%;
     flex-direction: row;
@@ -157,17 +166,13 @@ p {
     margin-right: 10px;
     margin-bottom: 0;
   }
-  .content {
-    border-left: none;
-  }
-  header {
-    flex-direction: column;
-    gap: 10px;
-  }
+  .content { border-left: none; }
+  header { flex-direction: column; gap: 10px; }
 }
 </style>
 </head>
 <body>
+
 <header>
   <img src="https://i.postimg.cc/py3XsTWd/logo.png" alt="Logo Comité" class="logo">
   <h1 class="dashboard-title">Comité Empresa Avatel Madrid</h1>
@@ -197,21 +202,26 @@ p {
   </aside>
   
   <section class="content" id="content-area">
-    <!-- CONTENIDO INICIAL DEL DASHBOARD -->
     <h2>Bienvenido</h2>
     <p>Selecciona una opción del menú para ver el contenido aquí.</p>
-    <!-- AQUI PUEDES AÑADIR MÁS ELEMENTOS, IMAGENES, TABLAS, ETC -->
   </section>
 </div>
 
+<!-- Netlify Identity -->
 <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 <script>
 netlifyIdentity.init();
 
-// Mostrar email del usuario logueado
+// Mostrar usuario logueado
 netlifyIdentity.on("login", user => {
   document.getElementById("user-email").innerText = "Usuario: " + user.email;
 });
+
+// Mostrar usuario si ya estaba logueado
+const user = netlifyIdentity.currentUser();
+if (user) {
+  document.getElementById("user-email").innerText = "Usuario: " + user.email;
+}
 
 // Logout
 function logout() {
@@ -223,14 +233,12 @@ netlifyIdentity.on("logout", () => {
   console.log("Usuario desconectado");
 });
 
-// Función para mostrar contenido según la opción del menú
+// Función para mostrar contenido según menú
 function showContent(text) {
   document.getElementById("content-area").innerHTML = `
     <h2>${text}</h2>
     <p>Contenido correspondiente a ${text}.</p>
-    <!-- PUEDES AÑADIR AQUI ELEMENTOS RELACIONADOS CON LA OPCION SELECCIONADA -->
   `;
-  // Marcar enlace activo
   const links = document.querySelectorAll('.sidebar nav a');
   links.forEach(link => link.classList.remove('active'));
   event.target.classList.add('active');
