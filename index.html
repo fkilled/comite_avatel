@@ -1,24 +1,35 @@
+<!-- Bloque 1: index.html -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Página Principal</title>
-<link rel="stylesheet" href="style.css">
+<title>Inicio - Login</title>
+<style>
+body { font-family: Arial, sans-serif; text-align: center; margin: 2rem; }
+button { padding: 0.5rem 1rem; margin: 0.5rem; font-size: 1rem; }
+</style>
 </head>
 <body>
-<header>
-<h1>Bienvenido a Mi Sitio</h1>
-</header>
-<main>
-<p>Esta es la página principal.</p>
-<nav>
-<a href="index.html">Inicio</a> |
-<a href="dashboard.html">Dashboard</a>
-</nav>
-</main>
-<footer>
-<p>© 2025 Mi Sitio</p>
-</footer>
+<h1>Bienvenido a la Web del Comité</h1>
+<p>Para acceder al contenido y videollamada, inicia sesión:</p>
+<button onclick="login()">Login / Register</button>
+
+
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+<script>
+netlifyIdentity.init();
+
+
+function login() {
+netlifyIdentity.open();
+}
+
+
+netlifyIdentity.on("login", user => {
+console.log("Usuario logueado:", user);
+window.location.href = "/dashboard.html";
+});
+</script>
 </body>
 </html>

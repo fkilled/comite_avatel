@@ -1,0 +1,38 @@
+<!-- Bloque 2: dashboard.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard</title>
+<style>
+body { font-family: Arial, sans-serif; text-align: center; margin: 2rem; }
+a, button { padding: 0.5rem 1rem; margin: 0.5rem; font-size: 1rem; display: inline-block; }
+</style>
+</head>
+<body>
+<h1>Dashboard - Usuarios logueados</h1>
+<p>Contenido protegido solo para usuarios registrados.</p>
+
+
+<a href="https://meet.google.com/ntx-ytxr-hap" target="_blank">Unirse a la videollamada</a><br>
+<button onclick="logout()">Logout</button>
+
+
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+<script>
+netlifyIdentity.init();
+
+
+function logout() {
+netlifyIdentity.logout();
+window.location.href = "/index.html";
+}
+
+
+netlifyIdentity.on("logout", () => {
+console.log("Usuario desconectado");
+});
+</script>
+</body>
+</html>
