@@ -1,4 +1,4 @@
-<!-- Bloque 1: index.html -->
+<!-- index.html -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -7,29 +7,87 @@
 <link rel="icon" type="image/x-icon" sizes="32x32" href="/images/favicon.ico">
 <title>Inicio - Login</title>
 <style>
-body { font-family: Arial, sans-serif; text-align: center; margin: 2rem; }
-button { padding: 0.5rem 1rem; margin: 0.5rem; font-size: 1rem; }
+/* CSS profesional aplicado */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  text-align: center;
+}
+
+.container {
+  max-width: 600px;
+  margin: 50px auto;
+  padding: 30px;
+  background-color: #7121D1;
+  border-radius: 15px;
+  text-align: center;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  color: #ffffff;
+}
+
+.logo {
+  max-width: 120px;
+  border-radius: 50%;
+  margin-bottom: 20px;
+  border: 3px solid #ffffff;
+}
+
+h1 {
+  margin-bottom: 15px;
+  font-size: 2rem;
+}
+
+p {
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+button.button {
+  display: inline-block;
+  padding: 12px 30px;
+  margin-top: 20px;
+  background-color: #ffcc00;
+  color: #7121D1;
+  font-weight: bold;
+  text-decoration: none;
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+button.button:hover {
+  background-color: #e6b800;
+  transform: translateY(-2px);
+}
 </style>
 </head>
 <body>
-<h1>Bienvenido a la Web del Comité</h1>
-<p>Para acceder al contenido y videollamada, inicia sesión:</p>
-<button onclick="login()">Login / Register</button>
-
+  <div class="container">
+    <img src="https://i.postimg.cc/py3XsTWd/logo.png" alt="Logo Comité" class="logo">
+    <h1>Bienvenido a la Web del Comité</h1>
+    <p>Para acceder al contenido y videollamada, inicia sesión:</p>
+    <button class="button" onclick="login()">Login / Register</button>
+  </div>
 
 <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 <script>
 netlifyIdentity.init();
 
-
 function login() {
-netlifyIdentity.open();
+  netlifyIdentity.open();
 }
 
-
 netlifyIdentity.on("login", user => {
-console.log("Usuario logueado:", user);
-window.location.href = "/dashboard.html";
+  console.log("Usuario logueado:", user);
+  window.location.href = "/dashboard.html";
 });
 </script>
 </body>
