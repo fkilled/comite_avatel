@@ -3,76 +3,138 @@
 /* Reset básico */
 body {
   font-family: Arial, sans-serif;
-  background-color: #f0f0f0; /* fondo general */
   margin: 0;
   padding: 0;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  color: #ffffff; /* texto por defecto blanco */
+  background: linear-gradient(135deg, #9B5DE5, #C084FC); /* fondo morado claro */
+  color: #000000; /* texto negro por defecto */
 }
 
-header, footer {
-  background-color: #333;
-  color: #fff;
-  text-align: center;
-  padding: 1rem;
+/* Header con logo, título y logout */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 30px;
+  background-color: rgba(255,255,255,0.8);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 }
 
-main {
-  flex: 1;
-  padding: 2rem;
-  text-align: center;
-}
-
-/* Contenedor central tipo card */
-.container {
-  max-width: 600px;
-  margin: 50px auto;
-  padding: 30px;
-  background-color: #7121D1; /* morado */
-  border-radius: 15px;
-  text-align: center;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-}
-
-/* Logo */
-.logo {
+header img.logo {
   max-width: 120px;
-  border-radius: 50%; /* logo redondeado */
-  margin-bottom: 20px;
+  border-radius: 50%;
   border: 3px solid #ffffff;
 }
 
-/* Títulos y texto */
-h2 {
-  margin-bottom: 15px;
-  font-size: 1.8rem;
+/* Título dashboard moderno */
+.dashboard-title {
+  font-family: 'Arial Black', Arial, sans-serif;
+  font-size: 1.6rem;
+  text-align: center;
+  background: linear-gradient(45deg, #7121D1, #C084FC);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.4);
+  flex: 1;
+  margin: 0 20px;
+}
+
+header button.logout-button {
+  background-color: #ffcc00;
+  color: #7121D1;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+header button.logout-button:hover {
+  background-color: #e6b800;
+}
+
+/* Layout principal: sidebar + contenido */
+.main-container {
+  display: flex;
+  flex: 1;
+  min-height: calc(100vh - 90px);
+}
+
+/* Sidebar */
+.sidebar {
+  width: 220px;
+  background-color: rgba(0,0,0,0.3); /* más oscuro que el fondo */
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.sidebar .user-info {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.sidebar .user-info p {
+  margin: 0;
+  font-weight: bold;
+  color: #000000; /* texto negro */
+}
+
+/* Botón Meet */
+.sidebar .user-info a.meet-button img {
+  height: 120px; /* grande */
+  width: auto;
+}
+
+/* Menú lateral */
+.sidebar nav a {
+  display: block;
+  padding: 10px 15px;
+  margin-bottom: 5px;
+  color: #000000;
+  text-decoration: none;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.sidebar nav a:hover, .sidebar nav a.active {
+  background-color: #ffcc00;
+  color: #7121D1;
+}
+
+/* Contenido central */
+.content {
+  flex: 1;
+  padding: 30px;
+  background-color: rgba(255,255,255,0.6);
+  overflow-y: auto;
+  border-left: 1px solid rgba(0,0,0,0.2);
+  color: #000000;
+}
+
+/* Títulos y párrafos */
+h1, h2 {
+  margin-top: 0;
 }
 
 p {
   font-size: 1rem;
   line-height: 1.5;
-  color: #ffffff;
 }
 
-/* Enlaces normales */
-a {
-  color: #0066cc;
-  text-decoration: none;
-}
-
-a:hover {
-  text-decoration: underline;
-}
-
-/* Botones tipo call-to-action */
+/* Botones tipo call-to-action (ej: Login en index.html) */
 a.button {
   display: inline-block;
   padding: 12px 30px;
   margin-top: 20px;
-  background-color: #ffcc00; /* amarillo */
-  color: #7121D1; /* texto morado */
+  background-color: #ffcc00;
+  color: #7121D1;
   font-weight: bold;
   text-decoration: none;
   border-radius: 8px;
@@ -85,9 +147,33 @@ a.button:hover {
   transform: translateY(-2px);
 }
 
-/* Footer interno del contenedor */
+/* Footer interno de contenedor */
 .container .footer {
   margin-top: 25px;
   font-size: 0.9rem;
   color: #f0e6ff;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .main-container {
+    flex-direction: column;
+  }
+  .sidebar {
+    width: 100%;
+    flex-direction: row;
+    overflow-x: auto;
+    gap: 10px;
+  }
+  .sidebar nav a {
+    margin-right: 10px;
+    margin-bottom: 0;
+  }
+  .content {
+    border-left: none;
+  }
+  header {
+    flex-direction: column;
+    gap: 10px;
+  }
 }

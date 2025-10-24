@@ -14,17 +14,17 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background: linear-gradient(135deg, #7121D1, #9B5DE5);
-  color: #ffffff;
+  background: linear-gradient(135deg, #9B5DE5, #C084FC); /* fondo morado claro */
+  color: #000000;
 }
 
-/* Header con logo y botón Logout */
+/* Header con logo, título y Logout */
 header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 15px 30px;
-  background-color: rgba(113,33,209,0.95);
+  background-color: rgba(255,255,255,0.8);
   box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 }
 
@@ -32,6 +32,19 @@ header img.logo {
   max-width: 120px;
   border-radius: 50%;
   border: 3px solid #ffffff;
+}
+
+/* Título moderno con efecto 3D y degradado */
+.dashboard-title {
+  font-family: 'Arial Black', Arial, sans-serif;
+  font-size: 1.6rem;
+  text-align: center;
+  background: linear-gradient(45deg, #7121D1, #C084FC);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.4); /* efecto 3D sutil */
+  flex: 1;
+  margin: 0 20px;
 }
 
 header button.logout-button {
@@ -56,10 +69,10 @@ header button.logout-button:hover {
   min-height: calc(100vh - 90px);
 }
 
-/* Menú lateral */
+/* Sidebar lateral */
 .sidebar {
   width: 220px;
-  background-color: rgba(0,0,0,0.3);
+  background-color: rgba(0,0,0,0.3); /* más oscuro que el fondo */
   padding: 20px;
   box-sizing: border-box;
   display: flex;
@@ -72,22 +85,24 @@ header button.logout-button:hover {
   text-align: left;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 15px;
 }
 
 .sidebar .user-info p {
   margin: 0;
   font-weight: bold;
+  color: #000000; /* texto negro */
 }
 
-/* Botón Meet en sidebar */
+/* Botón Google Meet en sidebar */
 .sidebar .user-info a.meet-button {
   display: inline-block;
   cursor: pointer;
 }
 
 .sidebar .user-info a.meet-button img {
-  height: 35px;
+  height: 120px; /* tamaño grande */
+  width: auto;
 }
 
 /* Opciones del menú */
@@ -95,7 +110,7 @@ header button.logout-button:hover {
   display: block;
   padding: 10px 15px;
   margin-bottom: 5px;
-  color: #ffffff;
+  color: #000000; /* texto negro */
   text-decoration: none;
   border-radius: 6px;
   transition: all 0.2s ease;
@@ -111,9 +126,10 @@ header button.logout-button:hover {
   flex: 1;
   padding: 30px;
   box-sizing: border-box;
-  background-color: rgba(113,33,209,0.8);
+  background-color: rgba(255,255,255,0.6); /* más claro que sidebar */
   overflow-y: auto;
-  border-left: 1px solid rgba(255,255,255,0.2);
+  border-left: 1px solid rgba(0,0,0,0.2);
+  color: #000000;
 }
 
 /* Títulos y párrafos */
@@ -135,6 +151,7 @@ p {
     width: 100%;
     flex-direction: row;
     overflow-x: auto;
+    gap: 10px;
   }
   .sidebar nav a {
     margin-right: 10px;
@@ -153,6 +170,7 @@ p {
 <body>
 <header>
   <img src="https://i.postimg.cc/py3XsTWd/logo.png" alt="Logo Comité" class="logo">
+  <h1 class="dashboard-title">Comité Empresa Avatel Madrid</h1>
   <button class="logout-button" onclick="logout()">Logout</button>
 </header>
 
@@ -179,8 +197,10 @@ p {
   </aside>
   
   <section class="content" id="content-area">
+    <!-- CONTENIDO INICIAL DEL DASHBOARD -->
     <h2>Bienvenido</h2>
     <p>Selecciona una opción del menú para ver el contenido aquí.</p>
+    <!-- AQUI PUEDES AÑADIR MÁS ELEMENTOS, IMAGENES, TABLAS, ETC -->
   </section>
 </div>
 
@@ -208,6 +228,7 @@ function showContent(text) {
   document.getElementById("content-area").innerHTML = `
     <h2>${text}</h2>
     <p>Contenido correspondiente a ${text}.</p>
+    <!-- PUEDES AÑADIR AQUI ELEMENTOS RELACIONADOS CON LA OPCION SELECCIONADA -->
   `;
   // Marcar enlace activo
   const links = document.querySelectorAll('.sidebar nav a');
