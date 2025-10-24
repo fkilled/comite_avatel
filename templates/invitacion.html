@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Invitación a Comite De Avatel</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 600px;
+      margin: 50px auto;
+      padding: 30px;
+      background-color: #7121D1; /* fondo morado */
+      border-radius: 15px;
+      text-align: center;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      color: #ffffff; /* texto blanco */
+    }
+    .logo {
+      max-width: 120px;
+      border-radius: 50%; /* logo redondeado */
+      margin-bottom: 20px;
+      border: 3px solid #ffffff;
+    }
+    h2 {
+      margin-bottom: 15px;
+      font-size: 1.8rem;
+    }
+    p {
+      font-size: 1rem;
+      line-height: 1.5;
+    }
+    a.button {
+      display: inline-block;
+      padding: 12px 30px;
+      margin-top: 20px;
+      background-color: #ffcc00; /* botón destacado */
+      color: #7121D1;
+      font-weight: bold;
+      text-decoration: none;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      transition: all 0.3s ease;
+    }
+    a.button:hover {
+      background-color: #e6b800;
+      transform: translateY(-2px);
+    }
+    .footer {
+      margin-top: 25px;
+      font-size: 0.9rem;
+      color: #f0e6ff;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <img src="https://i.postimg.cc/py3XsTWd/logo.png" alt="Logo Comité" class="logo">
+    <h2>Has sido invitado a unirte al Comite De Avatel en Madrid</h2>
+    <p>Haz clic en el botón de abajo para registrarte y acceder al contenido protegido:</p>
+    <a class="button" href="{{ .InviteURL }}">Registrarme</a>
+    <p class="footer">Si no solicitaste esta invitación, puedes ignorar este correo.</p>
+  </div>
+</body>
+</html>
