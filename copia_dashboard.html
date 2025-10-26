@@ -6,10 +6,13 @@
 <title>Dashboard</title>
 <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
 <style>
+/* --- Estilos iguales que antes --- */
 body {
   font-family: Arial, sans-serif;
-  margin: 0; padding: 0;
-  display: flex; flex-direction: column;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
   min-height: 100vh;
   background: linear-gradient(135deg, #9B5DE5, #C084FC);
   color: #000;
@@ -19,7 +22,9 @@ header {
   padding: 15px 30px; background-color: rgba(255,255,255,0.8);
   box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 }
-header img.logo { max-width: 120px; border-radius: 50%; border: 3px solid #fff; }
+header img.logo {
+  max-width: 120px; border-radius: 50%; border: 3px solid #fff;
+}
 .dashboard-title {
   font-family: 'Arial Black', Arial, sans-serif;
   font-size: 1.6rem; text-align: center;
@@ -30,15 +35,14 @@ header img.logo { max-width: 120px; border-radius: 50%; border: 3px solid #fff; 
   flex: 1; margin: 0 20px;
 }
 header button.logout-button {
-  background-color: #ffcc00; color: #7121D1;
-  border: none; border-radius: 6px;
-  padding: 8px 14px; font-weight: bold; cursor: pointer;
-  transition: all 0.3s ease;
+  background-color: #ffcc00; color: #7121D1; border: none;
+  border-radius: 6px; padding: 8px 14px; font-weight: bold;
+  cursor: pointer; transition: all 0.3s ease;
 }
 header button.logout-button:hover { background-color: #e6b800; }
 .main-container { display: flex; flex: 1; min-height: calc(100vh - 90px); }
 .sidebar {
-  width: 220px; background-color: rgba(0,0,0,0.2);
+  width: 220px; background-color: rgba(0,0,0,0.3);
   padding: 20px; display: flex; flex-direction: column;
 }
 .sidebar .user-info { margin-bottom: 20px; display: flex; flex-direction: column; gap: 15px; }
@@ -50,24 +54,8 @@ header button.logout-button:hover { background-color: #e6b800; }
 }
 .sidebar nav a:hover, .sidebar nav a.active { background-color: #ffcc00; color: #7121D1; }
 .content {
-  flex: 1; padding: 30px;
-  background-color: rgba(255,255,255,0.6);
+  flex: 1; padding: 30px; background-color: rgba(255,255,255,0.6);
   overflow-y: auto; border-left: 1px solid rgba(0,0,0,0.2); color: #000;
-}
-footer {
-  background-color: rgba(255,255,255,0.9);
-  text-align: center;
-  padding: 15px;
-  font-size: 0.9rem;
-}
-footer a {
-  color: #7121D1;
-  font-weight: bold;
-  text-decoration: none;
-  margin: 0 10px;
-}
-footer a:hover {
-  text-decoration: underline;
 }
 @media (max-width: 768px) {
   .main-container { flex-direction: column; }
@@ -113,47 +101,38 @@ footer a:hover {
     <p>Selecciona una opción del menú para ver el contenido aquí.</p>
   </section>
 </div>
-
-<footer>
-  © 2025 Comité Empresa Avatel Madrid · 
-  <a href="/privacy.html" target="_blank">Política de Privacidad</a> · 
-  <a href="/terms.html" target="_blank">Condiciones del Servicio</a>
-</footer>
-
+  <footer>
+    © 2025 Comité Empresa Avatel Madrid · 
+    <a href="/privacy.html" target="_blank">Política de Privacidad</a> · 
+    <a href="/terms.html" target="_blank">Condiciones del Servicio</a>
+  </footer>
 <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 <script src="https://apis.google.com/js/api.js"></script>
 <script src="https://accounts.google.com/gsi/client"></script>
 
 <script>
-/* === Netlify Identity === */
+/* --- Netlify Identity --- */
 netlifyIdentity.init();
 netlifyIdentity.on("login", user => {
   document.getElementById("user-email").innerText = "Usuario: " + user.email;
 });
 const user = netlifyIdentity.currentUser();
 if (user) document.getElementById("user-email").innerText = "Usuario: " + user.email;
-
 function logout() {
   netlifyIdentity.logout();
   window.location.href = "/index.html";
 }
 
-/* === Google Drive === */
+/* --- Google Drive config --- */
 const CLIENT_ID = '50924464133-p08sk3tqmijmkvu6j38b754hqhvm2vpn.apps.googleusercontent.com';
 const SCOPES = 'https://www.googleapis.com/auth/drive.file https://www.googleapis.com/auth/drive.metadata.readonly';
-const FOLDER_ID = '1reQSfQAspCQmRPAceOG1ZmFxicsCCXih';
+const FOLDER_ID = 'reQSfQAspCQmRPAceOG1ZmFxicsCCXih';
+let tokenClient;
 
-let tokenClient, gapiInited = false;
-
-function gapiLoaded() {
-  gapi.load('client', initializeGapiClient);
-}
-
-async function initializeGapiClient() {
-  await gapi.client.init({
-    discoveryDocs: ['https://www.googleapis.com/discovery/v1/apis/drive/v3/rest']
+function initGapi() {
+  gapi.load('client', async () => {
+    await gapi.client.init({ discoveryDocs: ['https://www.googleapis.com/discovery/v1/apis/drive/v3/rest'] });
   });
-  gapiInited = true;
 }
 
 function initGoogleAuth() {
@@ -164,18 +143,16 @@ function initGoogleAuth() {
       if (resp.error) throw resp;
       document.getElementById("drive-login").style.display = "none";
       document.getElementById("drive-section").style.display = "block";
-      await listFiles();
+      listFiles();
     },
   });
 }
 
 function authorizeDrive() {
-  if (!tokenClient) initGoogleAuth();
   tokenClient.requestAccessToken({ prompt: 'consent' });
 }
 
 async function listFiles() {
-  if (!gapiInited) await initializeGapiClient();
   const res = await gapi.client.drive.files.list({
     q: `'${FOLDER_ID}' in parents and trashed=false`,
     fields: 'files(id,name,webViewLink)',
@@ -202,10 +179,7 @@ async function uploadFile(e) {
   form.append("metadata", new Blob([JSON.stringify(metadata)], { type: "application/json" }));
   form.append("file", file);
 
-  const token = gapi.client.getToken();
-  if (!token) return alert("Debes iniciar sesión en Google primero.");
-  const accessToken = token.access_token;
-
+  const accessToken = gapi.client.getToken().access_token;
   await fetch("https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id", {
     method: "POST",
     headers: new Headers({ "Authorization": "Bearer " + accessToken }),
@@ -213,25 +187,16 @@ async function uploadFile(e) {
   });
 
   alert("Archivo subido con éxito.");
-  await listFiles();
+  listFiles();
 }
 
-/* === Mostrar contenidos === */
+/* --- Mostrar contenidos --- */
 function showContent(option) {
   const area = document.getElementById("content-area");
   let html = "";
 
   if (option === "Opción 1") {
-    html = `<h2>Representación</h2>
-    <p>Listado del Comité de Empresa.</p>
-    <table style="width:80%;margin:auto;border-collapse:collapse;margin-top:15px;text-align:center;">
-      <tr style="background-color:#7121D1;color:#fff;">
-        <th>Nombre</th><th>Rol</th><th>Estado</th>
-      </tr>
-      <tr style="background-color:#fff;color:#000;"><td>Juan Pérez</td><td>Presidente</td><td>Activo</td></tr>
-      <tr style="background-color:#fff;color:#000;"><td>María López</td><td>Secretaria</td><td>Activo</td></tr>
-      <tr style="background-color:#fff;color:#000;"><td>Pedro García</td><td>Delegado</td><td>Activo</td></tr>
-    </table>`;
+    html = `<h2>Personal</h2><p>Representantes del Comité</p>`;
   }
 
   else if (option === "Opción 10") {
@@ -254,12 +219,13 @@ function showContent(option) {
     `;
     setTimeout(() => {
       document.getElementById("upload-form").addEventListener("submit", uploadFile);
-      gapiLoaded();
+      initGapi();
       initGoogleAuth();
     }, 100);
   }
 
   area.innerHTML = html;
+
   document.querySelectorAll('.sidebar nav a').forEach(a => a.classList.remove('active'));
   const active = Array.from(document.querySelectorAll('.sidebar nav a')).find(a => a.textContent.includes(option.split(" ")[1]));
   if (active) active.classList.add('active');
