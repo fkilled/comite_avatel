@@ -1,0 +1,138 @@
+<!-- privacy.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Política de Privacidad - Comité Empresa Avatel Madrid</title>
+  <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+
+  <style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, #9B5DE5, #C084FC);
+    color: #000;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(255,255,255,0.9);
+    padding: 15px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  }
+
+  header img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 3px solid #fff;
+    margin-right: 15px;
+  }
+
+  h1 {
+    font-family: 'Arial Black', Arial, sans-serif;
+    background: linear-gradient(45deg, #7121D1, #C084FC);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.4);
+  }
+
+  main {
+    flex: 1;
+    background-color: rgba(255,255,255,0.8);
+    margin: 40px auto;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+    width: 90%;
+    max-width: 900px;
+  }
+
+  h2 {
+    color: #7121D1;
+    margin-top: 25px;
+  }
+
+  p, li {
+    line-height: 1.6;
+    font-size: 1rem;
+  }
+
+  footer {
+    background-color: rgba(255,255,255,0.9);
+    text-align: center;
+    padding: 15px;
+    font-size: 0.9rem;
+    color: #000;
+  }
+
+  a {
+    color: #7121D1;
+    font-weight: bold;
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+  </style>
+</head>
+
+<body>
+  <header>
+    <img src="https://i.postimg.cc/py3XsTWd/logo.png" alt="Logo Comité">
+    <h1>Comité Empresa Avatel Madrid</h1>
+  </header>
+
+  <main>
+    <h2>Política de Privacidad</h2>
+    <p>Esta Política de Privacidad describe cómo el <strong>Comité Empresa Avatel Madrid</strong> recopila, utiliza y protege la información personal de los usuarios que acceden a la aplicación web alojada en <a href="https://comiteavatel.netlify.app" target="_blank">https://comiteavatel.netlify.app</a>.</p>
+
+    <h2>1. Información que recopilamos</h2>
+    <p>Utilizamos los servicios de autenticación de <strong>Netlify Identity</strong> y de <strong>Google OAuth 2.0</strong> para permitir el acceso seguro de los usuarios.</p>
+    <ul>
+      <li>Dirección de correo electrónico proporcionada durante el inicio de sesión.</li>
+      <li>Datos mínimos de perfil de Google (nombre y correo) necesarios para la autenticación.</li>
+      <li>Acceso temporal y limitado a los archivos del usuario en Google Drive, solo cuando el propio usuario lo autoriza expresamente.</li>
+    </ul>
+
+    <h2>2. Uso de la información</h2>
+    <p>Los datos personales y permisos solicitados se utilizan únicamente para:</p>
+    <ul>
+      <li>Identificar y autenticar al usuario dentro de la aplicación.</li>
+      <li>Permitir la carga, lectura y gestión de archivos en la carpeta del Comité en Google Drive, bajo el consentimiento explícito del usuario.</li>
+      <li>No compartimos, vendemos ni transferimos datos personales a terceros.</li>
+    </ul>
+
+    <h2>3. Acceso a Google Drive</h2>
+    <p>La aplicación utiliza la API de Google Drive para permitir a los miembros del comité subir y consultar documentos dentro de una carpeta específica de Drive del Comité. El acceso se gestiona con el alcance <code>https://www.googleapis.com/auth/drive.file</code>, lo cual significa que la app solo puede ver y modificar archivos creados o abiertos por la propia aplicación.</p>
+    <p>No accedemos, almacenamos ni procesamos archivos fuera del entorno de Google Drive autorizado.</p>
+
+    <h2>4. Seguridad</h2>
+    <p>Aplicamos medidas técnicas y organizativas razonables para proteger la información personal frente a accesos no autorizados, pérdida o alteración. Las credenciales de Google nunca se almacenan en nuestros servidores, ya que la autenticación se gestiona directamente mediante los servicios seguros de Google y Netlify Identity.</p>
+
+    <h2>5. Conservación de datos</h2>
+    <p>Los datos de sesión se conservan únicamente mientras el usuario mantenga activa su cuenta o hasta que solicite su eliminación. Los usuarios pueden revocar en cualquier momento los permisos otorgados desde su cuenta de Google en <a href="https://myaccount.google.com/permissions" target="_blank">https://myaccount.google.com/permissions</a>.</p>
+
+    <h2>6. Derechos del usuario</h2>
+    <p>El usuario puede ejercer sus derechos de acceso, rectificación o eliminación de sus datos contactando con el Comité a través del correo: <a href="mailto:comiteavatelmadrid@gmail.com">comite.avatel.madrid@gmail.com</a>.</p>
+
+    <h2>7. Cambios en esta política</h2>
+    <p>Podemos actualizar esta política periódicamente. La versión más reciente estará siempre disponible en esta misma página.</p>
+
+    <h2>8. Contacto</h2>
+    <p>Para cualquier consulta sobre esta política o sobre el tratamiento de datos personales, puede contactar con el Comité en la dirección de correo anterior.</p>
+  </main>
+
+  <footer>
+    © 2025 Comité Empresa Avatel Madrid · Todos los derechos reservados
+  </footer>
+</body>
+</html>
