@@ -116,7 +116,8 @@ function initOption10(){
 
 /* === Google Calendar === */
 const CALENDAR_SCOPES = 'https://www.googleapis.com/auth/calendar.readonly';
-const CALENDAR_ID = 'comiteavatelmadrid@gmail.com'; // tu ID final
+const CALENDAR_ID = 'comiteavatelmadrid@gmail.com';
+
 let calendarTokenClient, gapiCalendarInited = false;
 
 function gapiCalendarLoaded() {
@@ -135,19 +136,19 @@ function initGoogleCalendar() {
     client_id: CLIENT_ID,
     scope: CALENDAR_SCOPES,
     callback: async (tokenResponse) => {
-      if (tokenResponse.error) throw tokenResponse;
+      if(tokenResponse.error) throw tokenResponse;
       await listUpcomingEvents();
-    },
+    }
   });
 }
 
 function authorizeCalendar() {
-  if (!calendarTokenClient) initGoogleCalendar();
+  if(!calendarTokenClient) initGoogleCalendar();
   calendarTokenClient.requestAccessToken({ prompt: 'consent' });
 }
 
 async function listUpcomingEvents() {
-  if (!gapiCalendarInited) await initializeCalendarClient();
+  if(!gapiCalendarInited) await initializeCalendarClient();
 
   const response = await gapi.client.calendar.events.list({
     calendarId: CALENDAR_ID,
@@ -162,31 +163,37 @@ async function listUpcomingEvents() {
   container.innerHTML = '';
 
   const events = response.result.items;
-  if (!events || events.length === 0) {
-    container.innerHTML = '<p>No hay eventos próximos.</p>';
+  if(!events || events.length===0){
+    container.innerHTML='<p>No hay eventos próximos.</p>';
     return;
   }
 
-  const ul = document.createElement('ul');
-  ul.style.listStyle = 'none';
-  ul.style.padding = '0';
-
   events.forEach(event => {
-    const li = document.createElement('li');
-    li.style.backgroundColor = '#fff';
-    li.style.marginBottom = '10px';
-    li.style.padding = '10px';
-    li.style.borderRadius = '6px';
-    li.style.boxShadow = '0 2px 4px rgba(0,0,0,0.1)';
+    const isAllDay = !!event.start.date;
+    const start = new Date(event.start.dateTime || event.start.date);
+    const day = start.getDate();
+    const month = start.toLocaleString('es-ES', { month: 'short' });
+    const year = start.getFullYear();
+    const hours = start.getHours().toString().padStart(2,'0');
+    const minutes = start.getMinutes().toString().padStart(2,'0');
 
-    const start = event.start.dateTime || event.start.date;
-    li.innerHTML = `<strong>${event.summary}</strong><br>
-                    <em>${new Date(start).toLocaleString('es-ES')}</em>`;
-    ul.appendChild(li);
+    const card = document.createElement('div');
+    card.className = 'event-card';
+
+    const dateDiv = document.createElement('div');
+    dateDiv.className = 'event-date' + (isAllDay ? ' all-day' : '');
+    dateDiv.innerHTML = `${day}<span>${month}</span>`;
+
+    const infoDiv = document.createElement('div');
+    infoDiv.className = 'event-info';
+    infoDiv.innerHTML = `<strong>${event.summary || 'Sin título'}</strong><br>
+                         <em>${isAllDay ? 'Todo el día' : `${hours}:${minutes} - ${year}`}</em>`;
+
+    card.appendChild(dateDiv);
+    card.appendChild(infoDiv);
+    container.appendChild(card);
   });
-
-  container.appendChild(ul);
 }
 
-/* === Cargar la primera página al abrir dashboard === */
+/* === Cargar primera página al abrir dashboard === */
 loadPage("opcion1.html");
