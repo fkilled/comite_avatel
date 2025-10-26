@@ -86,10 +86,26 @@ header button.logout-button:hover {
   color: #000000; /* texto negro */
 }
 
-/* Botón Meet */
+/* Botón Meet mejorado */
+.sidebar .user-info a.meet-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+}
+
 .sidebar .user-info a.meet-button img {
-  height: 120px; /* grande */
-  width: auto;
+  height: 120px;
+  border-radius: 12px;
+  padding: 8px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 2px solid #7121D1;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  transition: transform 0.2s ease;
+}
+
+.sidebar .user-info a.meet-button img:hover {
+  transform: scale(1.05);
 }
 
 /* Menú lateral */
