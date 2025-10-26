@@ -1,4 +1,3 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -7,95 +6,95 @@
   <title>Comité Empresa Avatel Madrid</title>
   <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
   <style>
-  body {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-    background: linear-gradient(135deg, #9B5DE5, #C084FC);
-    color: #000;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-  }
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #9B5DE5, #C084FC);
+      color: #000;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
 
-  header {
-    text-align: center;
-    padding: 30px 15px;
-    background-color: rgba(255,255,255,0.9);
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-  }
+    header {
+      text-align: center;
+      padding: 30px 15px;
+      background-color: rgba(255,255,255,0.9);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
 
-  header img {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    border: 3px solid #fff;
-  }
+    header img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      border: 3px solid #fff;
+    }
 
-  h1 {
-    margin-top: 15px;
-    font-family: 'Arial Black', Arial, sans-serif;
-    background: linear-gradient(45deg, #7121D1, #C084FC);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-  }
+    h1 {
+      margin-top: 15px;
+      font-family: 'Arial Black', Arial, sans-serif;
+      background: linear-gradient(45deg, #7121D1, #C084FC);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
 
-  main {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 20px;
-  }
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 20px;
+    }
 
-  .login-button {
-    background-color: #ffcc00;
-    color: #7121D1;
-    border: none;
-    border-radius: 8px;
-    padding: 12px 30px;
-    font-size: 1.1rem;
-    font-weight: bold;
-    cursor: pointer;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-    transition: all 0.3s ease;
-  }
+    .login-button {
+      background-color: #ffcc00;
+      color: #7121D1;
+      border: none;
+      border-radius: 8px;
+      padding: 12px 30px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      transition: all 0.3s ease;
+    }
 
-  .login-button:hover {
-    background-color: #e6b800;
-    transform: translateY(-2px);
-  }
+    .login-button:hover {
+      background-color: #e6b800;
+      transform: translateY(-2px);
+    }
 
-  footer {
-    background-color: rgba(255,255,255,0.9);
-    text-align: center;
-    padding: 15px;
-    font-size: 0.9rem;
-  }
+    footer {
+      background-color: rgba(255,255,255,0.9);
+      text-align: center;
+      padding: 15px;
+      font-size: 0.9rem;
+    }
 
-  footer a {
-    color: #7121D1;
-    font-weight: bold;
-    text-decoration: none;
-    margin: 0 10px;
-  }
+    footer a {
+      color: #7121D1;
+      font-weight: bold;
+      text-decoration: none;
+      margin: 0 10px;
+    }
 
-  footer a:hover {
-    text-decoration: underline;
-  }
+    footer a:hover {
+      text-decoration: underline;
+    }
 
-  p.notice {
-    font-size: 0.95rem;
-    margin-top: 15px;
-    max-width: 600px;
-    background-color: rgba(255,255,255,0.7);
-    padding: 10px;
-    border-radius: 8px;
-    line-height: 1.4;
-  }
+    p.notice {
+      font-size: 0.95rem;
+      margin-top: 15px;
+      max-width: 600px;
+      background-color: rgba(255,255,255,0.7);
+      padding: 10px;
+      border-radius: 8px;
+      line-height: 1.4;
+    }
   </style>
 </head>
 
@@ -122,14 +121,34 @@
   <!-- Netlify Identity -->
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   <script>
-  netlifyIdentity.init();
+    // Inicializar Netlify Identity
+    if (window.netlifyIdentity) {
+      window.netlifyIdentity.on("init", user => {
+        // Si el usuario ya está logueado, lo mandamos al dashboard directamente
+        if (user) {
+          window.location.href = "/dashboard.html";
+        }
+      });
 
-  function login() {
-    netlifyIdentity.open();
-    netlifyIdentity.on("login", () => {
-      window.location.href = "/dashboard.html";
-    });
-  }
+      // Redirige al dashboard tras iniciar sesión
+      window.netlifyIdentity.on("login", () => {
+        window.location.href = "/dashboard.html";
+      });
+
+      // Opcional: al cerrar sesión, vuelve al index
+      window.netlifyIdentity.on("logout", () => {
+        window.location.href = "/";
+      });
+    }
+
+    // Función para abrir el modal de login
+    function login() {
+      if (window.netlifyIdentity) {
+        window.netlifyIdentity.open("login");
+      } else {
+        alert("El servicio de autenticación no está disponible. Revisa la configuración en Netlify.");
+      }
+    }
   </script>
 </body>
 </html>
