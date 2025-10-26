@@ -1,4 +1,3 @@
-<!-- dashboard.html -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -7,7 +6,7 @@
 <title>Dashboard</title>
 <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
 <style>
-/* Reset básico */
+/* --- Estilos iguales que antes --- */
 body {
   font-family: Arial, sans-serif;
   margin: 0;
@@ -16,156 +15,52 @@ body {
   flex-direction: column;
   min-height: 100vh;
   background: linear-gradient(135deg, #9B5DE5, #C084FC);
-  color: #000000;
+  color: #000;
 }
-
-/* Header */
 header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 15px 30px;
-  background-color: rgba(255,255,255,0.8);
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 15px 30px; background-color: rgba(255,255,255,0.8);
   box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 }
-
 header img.logo {
-  max-width: 120px;
-  border-radius: 50%;
-  border: 3px solid #ffffff;
+  max-width: 120px; border-radius: 50%; border: 3px solid #fff;
 }
-
 .dashboard-title {
   font-family: 'Arial Black', Arial, sans-serif;
-  font-size: 1.6rem;
-  text-align: center;
+  font-size: 1.6rem; text-align: center;
   background: linear-gradient(45deg, #7121D1, #C084FC);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   text-shadow: 2px 2px 4px rgba(0,0,0,0.4);
-  flex: 1;
-  margin: 0 20px;
+  flex: 1; margin: 0 20px;
 }
-
 header button.logout-button {
-  background-color: #ffcc00;
-  color: #7121D1;
-  border: none;
-  border-radius: 6px;
-  padding: 8px 14px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: all 0.3s ease;
+  background-color: #ffcc00; color: #7121D1; border: none;
+  border-radius: 6px; padding: 8px 14px; font-weight: bold;
+  cursor: pointer; transition: all 0.3s ease;
 }
-
-header button.logout-button:hover {
-  background-color: #e6b800;
-}
-
-/* Layout principal: sidebar + contenido */
-.main-container {
-  display: flex;
-  flex: 1;
-  min-height: calc(100vh - 90px);
-}
-
-/* Sidebar */
+header button.logout-button:hover { background-color: #e6b800; }
+.main-container { display: flex; flex: 1; min-height: calc(100vh - 90px); }
 .sidebar {
-  width: 220px;
-  background-color: rgba(0,0,0,0.3);
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
+  width: 220px; background-color: rgba(0,0,0,0.3);
+  padding: 20px; display: flex; flex-direction: column;
 }
-
-.sidebar .user-info {
-  margin-bottom: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-.sidebar .user-info p {
-  margin: 0;
-  font-weight: bold;
-  color: #000000;
-}
-
-.sidebar .user-info a.meet-button img {
-  height: 120px;
-  width: auto;
-}
-
-/* Menú lateral */
+.sidebar .user-info { margin-bottom: 20px; display: flex; flex-direction: column; gap: 15px; }
+.sidebar .user-info p { margin: 0; font-weight: bold; color: #000; }
 .sidebar nav a {
-  display: block;
-  padding: 10px 15px;
-  margin-bottom: 5px;
-  color: #000000;
-  text-decoration: none;
-  border-radius: 6px;
+  display: block; padding: 10px 15px; margin-bottom: 5px;
+  color: #000; text-decoration: none; border-radius: 6px;
   transition: all 0.2s ease;
 }
-
-.sidebar nav a:hover, .sidebar nav a.active {
-  background-color: #ffcc00;
-  color: #7121D1;
-}
-
-/* Contenido central */
+.sidebar nav a:hover, .sidebar nav a.active { background-color: #ffcc00; color: #7121D1; }
 .content {
-  flex: 1;
-  padding: 30px;
-  background-color: rgba(255,255,255,0.6);
-  overflow-y: auto;
-  border-left: 1px solid rgba(0,0,0,0.2);
-  color: #000000;
+  flex: 1; padding: 30px; background-color: rgba(255,255,255,0.6);
+  overflow-y: auto; border-left: 1px solid rgba(0,0,0,0.2); color: #000;
 }
-
-/* Títulos y párrafos */
-h1, h2 { margin-top: 0; }
-p { font-size: 1rem; line-height: 1.5; }
-
-/* Botones tipo call-to-action */
-a.button {
-  display: inline-block;
-  padding: 12px 30px;
-  margin-top: 20px;
-  background-color: #ffcc00;
-  color: #7121D1;
-  font-weight: bold;
-  text-decoration: none;
-  border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-  transition: all 0.3s ease;
-}
-
-a.button:hover {
-  background-color: #e6b800;
-  transform: translateY(-2px);
-}
-
-/* Footer interno del contenedor */
-.container .footer {
-  margin-top: 25px;
-  font-size: 0.9rem;
-  color: #f0e6ff;
-}
-
-/* Responsive */
 @media (max-width: 768px) {
   .main-container { flex-direction: column; }
-  .sidebar {
-    width: 100%;
-    flex-direction: row;
-    overflow-x: auto;
-    gap: 10px;
-  }
-  .sidebar nav a {
-    margin-right: 10px;
-    margin-bottom: 0;
-  }
+  .sidebar { width: 100%; flex-direction: row; overflow-x: auto; gap: 10px; }
+  .sidebar nav a { margin-right: 10px; margin-bottom: 0; }
   .content { border-left: none; }
   header { flex-direction: column; gap: 10px; }
 }
@@ -184,11 +79,11 @@ a.button:hover {
     <div class="user-info">
       <p id="user-email">Usuario: </p>
       <a href="https://meet.google.com/ntx-ytxr-hap" target="_blank" class="meet-button">
-        <img src="/images/meet-logo.png" alt="Google Meet">
+        <img src="/images/meet-logo.png" alt="Google Meet" style="height:120px;">
       </a>
     </div>
     <nav>
-      <a href="#" class="active" onclick="showContent('Opción 1')">Opción 1</a>
+      <a href="#" class="active" onclick="showContent('Opción 1')">Representación</a>
       <a href="#" onclick="showContent('Opción 2')">Opción 2</a>
       <a href="#" onclick="showContent('Opción 3')">Opción 3</a>
       <a href="#" onclick="showContent('Opción 4')">Opción 4</a>
@@ -197,52 +92,141 @@ a.button:hover {
       <a href="#" onclick="showContent('Opción 7')">Opción 7</a>
       <a href="#" onclick="showContent('Opción 8')">Opción 8</a>
       <a href="#" onclick="showContent('Opción 9')">Opción 9</a>
-      <a href="#" onclick="showContent('Opción 10')">Opción 10</a>
+      <a href="#" onclick="showContent('Opción 10')">Documentos</a>
     </nav>
   </aside>
-  
+
   <section class="content" id="content-area">
     <h2>Bienvenido</h2>
     <p>Selecciona una opción del menú para ver el contenido aquí.</p>
   </section>
 </div>
 
-<!-- Netlify Identity -->
 <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-<script>
-netlifyIdentity.init();
+<script src="https://apis.google.com/js/api.js"></script>
+<script src="https://accounts.google.com/gsi/client"></script>
 
-// Mostrar usuario logueado
+<script>
+/* --- Netlify Identity --- */
+netlifyIdentity.init();
 netlifyIdentity.on("login", user => {
   document.getElementById("user-email").innerText = "Usuario: " + user.email;
 });
-
-// Mostrar usuario si ya estaba logueado
 const user = netlifyIdentity.currentUser();
-if (user) {
-  document.getElementById("user-email").innerText = "Usuario: " + user.email;
-}
-
-// Logout
+if (user) document.getElementById("user-email").innerText = "Usuario: " + user.email;
 function logout() {
   netlifyIdentity.logout();
   window.location.href = "/index.html";
 }
 
-netlifyIdentity.on("logout", () => {
-  console.log("Usuario desconectado");
-});
+/* --- Google Drive config --- */
+const CLIENT_ID = '50924464133-p08sk3tqmijmkvu6j38b754hqhvm2vpn.apps.googleusercontent.com';
+const SCOPES = 'https://www.googleapis.com/auth/drive.file https://www.googleapis.com/auth/drive.metadata.readonly';
+const FOLDER_ID = 'reQSfQAspCQmRPAceOG1ZmFxicsCCXih';
+let tokenClient;
 
-// Función para mostrar contenido según menú
-function showContent(text) {
-  document.getElementById("content-area").innerHTML = `
-    <h2>${text}</h2>
-    <p>Contenido correspondiente a ${text}.</p>
-  `;
-  const links = document.querySelectorAll('.sidebar nav a');
-  links.forEach(link => link.classList.remove('active'));
-  event.target.classList.add('active');
+function initGapi() {
+  gapi.load('client', async () => {
+    await gapi.client.init({ discoveryDocs: ['https://www.googleapis.com/discovery/v1/apis/drive/v3/rest'] });
+  });
+}
+
+function initGoogleAuth() {
+  tokenClient = google.accounts.oauth2.initTokenClient({
+    client_id: CLIENT_ID,
+    scope: SCOPES,
+    callback: async (resp) => {
+      if (resp.error) throw resp;
+      document.getElementById("drive-login").style.display = "none";
+      document.getElementById("drive-section").style.display = "block";
+      listFiles();
+    },
+  });
+}
+
+function authorizeDrive() {
+  tokenClient.requestAccessToken({ prompt: 'consent' });
+}
+
+async function listFiles() {
+  const res = await gapi.client.drive.files.list({
+    q: `'${FOLDER_ID}' in parents and trashed=false`,
+    fields: 'files(id,name,webViewLink)',
+  });
+  const files = res.result.files;
+  const list = document.getElementById("file-list");
+  list.innerHTML = "";
+  if (!files || files.length == 0) {
+    list.innerHTML = "<li>No hay archivos disponibles.</li>";
+    return;
+  }
+  files.forEach(f => {
+    list.innerHTML += `<li><a href="${f.webViewLink}" target="_blank">${f.name}</a></li>`;
+  });
+}
+
+async function uploadFile(e) {
+  e.preventDefault();
+  const file = document.getElementById("file-input").files[0];
+  if (!file) return alert("Selecciona un archivo.");
+
+  const metadata = { name: file.name, parents: [FOLDER_ID] };
+  const form = new FormData();
+  form.append("metadata", new Blob([JSON.stringify(metadata)], { type: "application/json" }));
+  form.append("file", file);
+
+  const accessToken = gapi.client.getToken().access_token;
+  await fetch("https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id", {
+    method: "POST",
+    headers: new Headers({ "Authorization": "Bearer " + accessToken }),
+    body: form,
+  });
+
+  alert("Archivo subido con éxito.");
+  listFiles();
+}
+
+/* --- Mostrar contenidos --- */
+function showContent(option) {
+  const area = document.getElementById("content-area");
+  let html = "";
+
+  if (option === "Opción 1") {
+    html = `<h2>Personal</h2><p>Representantes del Comité</p>`;
+  }
+
+  else if (option === "Opción 10") {
+    html = `
+      <h2>Gestión de Documentos (Google Drive)</h2>
+      <p>Inicia sesión con Google para subir o ver archivos.</p>
+      <div id="drive-login">
+        <button onclick="authorizeDrive()" style="background-color:#ffcc00;color:#7121D1;border:none;border-radius:6px;padding:10px 16px;font-weight:bold;cursor:pointer;">
+          Iniciar sesión con Google
+        </button>
+      </div>
+      <div id="drive-section" style="display:none;">
+        <form id="upload-form" style="margin-bottom:15px;">
+          <input type="file" id="file-input" required>
+          <button type="submit" style="background-color:#ffcc00;color:#7121D1;border:none;border-radius:6px;padding:8px 14px;margin-left:10px;cursor:pointer;">Subir archivo</button>
+        </form>
+        <h3>📁 Archivos disponibles</h3>
+        <ul id="file-list" style="list-style:none;padding:0;"></ul>
+      </div>
+    `;
+    setTimeout(() => {
+      document.getElementById("upload-form").addEventListener("submit", uploadFile);
+      initGapi();
+      initGoogleAuth();
+    }, 100);
+  }
+
+  area.innerHTML = html;
+
+  document.querySelectorAll('.sidebar nav a').forEach(a => a.classList.remove('active'));
+  const active = Array.from(document.querySelectorAll('.sidebar nav a')).find(a => a.textContent.includes(option.split(" ")[1]));
+  if (active) active.classList.add('active');
 }
 </script>
+
 </body>
 </html>

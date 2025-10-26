@@ -1,0 +1,60 @@
+-----------libreria
+<script src="https://apis.google.com/js/api.js"></script>
+
+-----------Autenticacion:
+function authenticate() {
+  return gapi.auth2.getAuthInstance()
+      .signIn({scope: "https://www.googleapis.com/auth/drive.file"})
+      .then(function() { console.log("Usuario autenticado"); },
+            function(err) { console.error("Error autenticando:", err); });
+}
+
+function loadClient() {
+  gapi.client.setApiKey("TU_API_KEY");
+  return gapi.client.load("https://content.googleapis.com/discovery/v1/apis/drive/v3/rest")
+      .then(function() { console.log("Cliente API cargado"); },
+            function(err) { console.error("Error cargando cliente:", err); });
+}
+
+gapi.load("client:auth2", function() {
+  gapi.auth2.init({client_id: "TU_CLIENT_ID"});
+});
+
+----------subir archivo:
+function uploadFile(file, folderId) {
+  const metadata = {
+    name: file.name,
+    parents: [folderId]  // ID de la carpeta en Drive
+  };
+
+  const form = new FormData();
+  form.append("metadata", new Blob([JSON.stringify(metadata)], {type: "application/json"}));
+  form.append("file", file);
+
+  fetch("https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id", {
+    method: "POST",
+    headers: new Headers({ "Authorization": "Bearer " + gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().access_token }),
+    body: form
+  }).then(response => response.json())
+    .then(data => console.log("Archivo subido:", data))
+    .catch(err => console.error(err));
+}
+
+
+---------listar carpeta:
+
+function listFiles(folderId) {
+  gapi.client.drive.files.list({
+    q: `'${folderId}' in parents`,
+    fields: "files(id, name, webViewLink)"
+  }).then(response => {
+    const files = response.result.files;
+    let html = "<ul>";
+    files.forEach(f => {
+      html += `<li><a href="${f.webViewLink}" target="_blank">${f.name}</a></li>`;
+    });
+    html += "</ul>";
+    document.getElementById("file-list").innerHTML = html;
+  });
+}
+
