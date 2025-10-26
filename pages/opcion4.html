@@ -1,22 +1,141 @@
-<h2>Calendario de Reuniones</h2>
-<p>Próximas reuniones del Comité y fechas importantes.</p>
-<table style="width:80%; margin:auto; border-collapse:collapse; text-align:center; margin-top:15px;">
-  <tr style="background-color:#7121D1; color:#fff;">
-    <th>Fecha</th>
-    <th>Hora</th>
-    <th>Evento</th>
-    <th>Lugar</th>
-  </tr>
-  <tr style="background-color:#fff; color:#000;">
-    <td>30/10/2025</td>
-    <td>10:00</td>
-    <td>Reunión ordinaria</td>
-    <td>Sala de juntas 1</td>
-  </tr>
-  <tr style="background-color:#fff; color:#000;">
-    <td>15/11/2025</td>
-    <td>12:00</td>
-    <td>Asamblea General</td>
-    <td>Auditorio</td>
-  </tr>
-</table>
+<div style="text-align:center;">
+  <h2>Calendario de Reuniones</h2>
+  <p>Próximos eventos del Comité de Empresa (extraído de Google Calendar).</p>
+
+  <div id="calendar-events" style="margin-top:20px;">
+    <p>Cargando eventos...</p>
+  </div>
+</div>
+
+<style>
+  /* Tarjetas de eventos */
+  .event-card {
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    padding: 15px 20px;
+    margin-bottom: 15px;
+    transition: transform 0.2s;
+  }
+  .event-card:hover { transform: translateY(-3px); }
+
+  /* Fecha mini calendario */
+  .event-date {
+    flex: 0 0 90px;
+    text-align: center;
+    margin-right: 20px;
+    border-radius: 10px;
+    padding: 10px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #7121D1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .event-date span { font-size: 0.9rem; }
+
+  /* Información del evento */
+  .event-info {
+    text-align: left;
+  }
+  .event-info strong { font-size: 1.1rem; }
+  .event-info em { font-size: 0.9rem; color: #555; }
+
+  /* Eventos de todo el día */
+  .all-day {
+    background-color: #C084FC !important;
+  }
+</style>
+
+<script>
+const CALENDAR_ID = 'comiteavatelmadrid@gmail.com';
+const SCOPES = 'https://www.googleapis.com/auth/calendar.readonly';
+const CLIENT_ID = '50924464133-p08sk3tqmijmkvu6j38b754hqhvm2vpn.apps.googleusercontent.com';
+
+let tokenClient;
+let gapiInited = false;
+
+function gapiLoaded() { gapi.load('client', initializeGapiClient); }
+
+async function initializeGapiClient() {
+  await gapi.client.init({
+    discoveryDocs: ['https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest']
+  });
+  gapiInited = true;
+}
+
+function initGoogleCalendar() {
+  tokenClient = google.accounts.oauth2.initTokenClient({
+    client_id: CLIENT_ID,
+    scope: SCOPES,
+    callback: async (tokenResponse) => {
+      if (tokenResponse.error) throw tokenResponse;
+      document.getElementById('calendar-events').innerHTML = '<p>Cargando eventos...</p>';
+      await listUpcomingEvents();
+    },
+  });
+}
+
+function authorizeCalendar() {
+  if (!tokenClient) initGoogleCalendar();
+  calendarTokenClient.requestAccessToken({ prompt: 'consent' });
+}
+
+async function listUpcomingEvents() {
+  if (!gapiInited) await initializeGapiClient();
+
+  const response = await gapi.client.calendar.events.list({
+    calendarId: CALENDAR_ID,
+    timeMin: (new Date()).toISOString(),
+    showDeleted: false,
+    singleEvents: true,
+    maxResults: 10,
+    orderBy: 'startTime'
+  });
+
+  const events = response.result.items;
+  const container = document.getElementById('calendar-events');
+  container.innerHTML = '';
+
+  if (!events || events.length === 0) {
+    container.innerHTML = '<p>No hay eventos próximos.</p>';
+    return;
+  }
+
+  events.forEach(event => {
+    const isAllDay = !!event.start.date; // si es todo el día
+    const start = new Date(event.start.dateTime || event.start.date);
+    const day = start.getDate();
+    const month = start.toLocaleString('es-ES', { month: 'short' });
+    const year = start.getFullYear();
+    const hours = start.getHours().toString().padStart(2,'0');
+    const minutes = start.getMinutes().toString().padStart(2,'0');
+
+    const card = document.createElement('div');
+    card.className = 'event-card';
+
+    const dateDiv = document.createElement('div');
+    dateDiv.className = 'event-date' + (isAllDay ? ' all-day' : '');
+    dateDiv.innerHTML = `${day}<span>${month}</span>`;
+
+    const infoDiv = document.createElement('div');
+    infoDiv.className = 'event-info';
+    infoDiv.innerHTML = `<strong>${event.summary || 'Sin título'}</strong><br>
+                         <em>${isAllDay ? 'Todo el día' : `${hours}:${minutes} - ${year}`}</em>`;
+
+    card.appendChild(dateDiv);
+    card.appendChild(infoDiv);
+    container.appendChild(card);
+  });
+}
+
+// Inicializar al cargar la página
+setTimeout(() => {
+  initGoogleCalendar();
+  gapiLoaded();
+}, 100);
+</script>
