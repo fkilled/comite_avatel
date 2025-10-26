@@ -1,0 +1,26 @@
+<h2>Gestión de Documentos (Google Drive)</h2>
+<p>Inicia sesión con Google para subir o ver archivos.</p>
+
+<!-- Botón de login -->
+<div id="drive-login">
+  <button 
+    onclick="authorizeDrive()"
+    style="background-color:#ffcc00; color:#7121D1; border:none; border-radius:6px; padding:10px 16px; font-weight:bold; cursor:pointer;">
+    Iniciar sesión con Google
+  </button>
+</div>
+
+<!-- Sección de subida y listado de archivos -->
+<div id="drive-section" style="display:none;">
+  <form id="upload-form" style="margin-bottom:15px;">
+    <input type="file" id="file-input" required>
+    <button 
+      type="submit" 
+      style="background-color:#ffcc00; color:#7121D1; border:none; border-radius:6px; padding:8px 14px; margin-left:10px; cursor:pointer;">
+      Subir archivo
+    </button>
+  </form>
+
+  <h3>📁 Archivos disponibles</h3>
+  <ul id="file-list" style="list-style:none; padding:0;"></ul>
+</div>
