@@ -196,4 +196,4 @@ async function listUpcomingEvents() {
 }
 
 /* === Cargar primera página al abrir dashboard === */
-loadPage("opcion1.html");
+loadPage("miembros.html");
