@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Noticias Avatel</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Efecto zoom al pasar el ratón sobre la imagen */
+        .news-image {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .news-image:hover {
+            transform: scale(1.15);
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        .news-image-container {
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .news-image-container:hover {
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+
+        /* Modal */
+        .modal {
+            display: none; /* Oculto por defecto */
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.7);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+        }
+
+        /* Cerrar modal al hacer clic en cualquier parte */
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: #fff;
+            font-size: 30px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <!-- CONTENIDO CENTRAL -->
+    <div class="content" style="text-align: center; max-width:1200px; margin:auto;">
+        <h1>Noticias recientes de Avatel</h1>
+        <p>Listado de las noticias más relevantes del último mes relacionadas con Avatel y sus trabajadores.</p>
+
+        <!-- GRID DE NOTICIAS -->
+        <div style="
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 25px;
+        ">
+
+            <!-- TARJETA 1 – ERE -->
+            <div style="
+                background: rgba(255,255,255,0.85);
+                border-radius: 14px;
+                padding: 20px;
+                box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+                display:flex;
+                flex-direction:column;
+            ">
+                <h2 style="color:#7121D1;margin-top:0;">Avatel recorta plantilla: ERE afecta a varios trabajadores</h2>
+                <div class="news-image-container" style="margin-bottom:15px;">
+                    <img src="images/noticias/noticia1.png" 
+                         alt="Imagen noticia Avatel" 
+                         class="news-image">
+                </div>
+                <p>
+                    Avatel Telecom puso en marcha un despido colectivo que inicialmente afectaba a 849 empleados.
+                    Tras las negociaciones con los sindicatos, el número se redujo a 674, resultando en 391 despidos finales.
+                </p>
+                <a href="https://www.elespanol.com/invertia/empresas/tecnologia/20240513/avatel-telecom-propone-ere-empleados-plantilla/854914827_0.html"
+                   target="_blank"
+                   style="color:#7121D1; font-weight:bold;">
+                    Leer más
+                </a>
+            </div>
+
+            <!-- TARJETA 2 – Cambio de cobertura -->
+            <div style="
+                background: rgba(255,255,255,0.85);
+                border-radius: 14px;
+                padding: 20px;
+                box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+                display:flex;
+                flex-direction:column;
+            ">
+                <h2 style="color:#7121D1;margin-top:0;">Avatel cambiará la cobertura móvil a MasOrange</h2>
+                <div class="news-image-container" style="margin-bottom:15px;">
+                    <img src="images/noticias/noticia2.png" 
+                         alt="Imagen noticia Avatel" 
+                         class="news-image">
+                </div>
+                <p>
+                    Avatel migrará a sus clientes de la red de Telefónica hacia MasOrange a partir de enero de 2026.
+                    Este cambio permitirá mejoras técnicas, reducción de costes y la opción de habilitar servicios 5G.
+                </p>
+                <a href="https://www.mobileworldlive.com/spanish/avatel-migrara-de-telefonica-a-masorange-sus-700-000-clientes-de-movil/"
+                   target="_blank"
+                   style="color:#7121D1; font-weight:bold;">
+                    Leer más
+                </a>
+            </div>
+
+            <!-- TARJETA 3 – Conflictos laborales -->
+            <div style="
+                background: rgba(255,255,255,0.85);
+                border-radius: 14px;
+                padding: 20px;
+                box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+                display:flex;
+                flex-direction:column;
+            ">
+                <h2 style="color:#7121D1;margin-top:0;">Conflictos laborales y situación de los trabajadores</h2>
+                <div class="news-image-container" style="margin-bottom:15px;">
+                    <img src="images/noticias/noticia3.png" 
+                         alt="Imagen noticia Avatel" 
+                         class="news-image">
+                </div>
+                <p>
+                    Tras el ERE, la plantilla quedó reducida a 1.799 trabajadores.
+                    Además, Avatel enfrenta conflictos sindicales y sanciones regulatorias que podrían afectar cambios internos, condiciones y reorganización de funciones.
+                </p>
+                <a href="https://fetico.es/noticias/fetico-presenta-un-conflicto-colectivo-frente-a-la-audiencia-nacional-en-avatel-telecom/"
+                   target="_blank"
+                   style="color:#7121D1; font-weight:bold;">
+                    Leer más
+                </a>
+            </div>
+
+            <!-- TARJETA 4 – Filtración de datos -->
+            <div style="
+                background: rgba(255,255,255,0.85);
+                border-radius: 14px;
+                padding: 20px;
+                box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+                display:flex;
+                flex-direction:column;
+            ">
+                <h2 style="color:#7121D1;margin-top:0;">Avatel sufre filtración de datos tras ser extorsionada</h2>
+                <div class="news-image-container" style="margin-bottom:15px;">
+                    <img src="images/noticias/noticia4.png" 
+                         alt="Imagen noticia Avatel" 
+                         class="news-image">
+                </div>
+                <p>
+                    Avatel confirmó una filtración masiva: se filtraron datos de empleados, colaboradores y proveedores desde su servidor Azure, así como parte de 380 GB de datos de usuarios de una base Oracle.
+                </p>
+                <a href="https://bandaancha.eu/articulos/avatel-sufre-filtracion-datos-tras-ser-11500"
+                   target="_blank"
+                   style="color:#7121D1; font-weight:bold;">
+                    Leer más
+                </a>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- MODAL -->
+    <div id="imageModal" class="modal">
+        <span class="modal-close">&times;</span>
+        <img class="modal-content" id="modalImage">
+    </div>
+
+    <script>
+        // Modal para mostrar la imagen original
+        const modal = document.getElementById("imageModal");
+        const modalImg = document.getElementById("modalImage");
+        const closeBtn = document.querySelector(".modal-close");
+
+        document.querySelectorAll('.news-image').forEach(img => {
+            img.addEventListener('click', () => {
+                modal.style.display = "flex";
+                modalImg.src = img.src; // mostramos la misma imagen
+            });
+        });
+
+        // Cerrar modal al hacer clic en la X
+        closeBtn.addEventListener('click', () => {
+            modal.style.display = "none";
+        });
+
+        // Cerrar modal al hacer clic fuera de la imagen
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.style.display = "none";
+            }
+        });
+    </script>
+
+</body>
+</html>

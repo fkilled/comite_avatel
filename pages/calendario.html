@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calendario Interactivo Comité Avatel</title>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, #9B5DE5, #C084FC);
+    color: #000;
+}
+
+.container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 20px;
+    background: rgba(255,255,255,0.6);
+    border-radius: 14px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+h1 { text-align:center; color:#7121D1; }
+
+#month-navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+#month-navigation button {
+    background-color: #7121D1;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.2s;
+}
+
+#month-navigation button:hover { background-color: #5a18a8; }
+
+#month-name {
+    font-weight: bold;
+    color: #7121D1;
+    font-size: 1.2rem;
+}
+
+#calendar {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+    margin-bottom: 20px;
+}
+
+.day {
+    background: rgba(255,255,255,0.85);
+    padding: 15px;
+    border-radius: 12px;
+    cursor: pointer;
+    text-align: center;
+    position: relative;
+    transition: transform 0.2s, background 0.2s;
+}
+
+.day:hover { background: #d0bfff; transform: translateY(-2px); }
+
+.day.has-event::after {
+    content: "•";
+    color: #7121D1;
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    font-size: 1.5em;
+}
+
+#events {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.event-card {
+    background: rgba(255,255,255,0.85);
+    padding: 15px;
+    border-radius: 14px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    transition: all 0.2s;
+}
+
+.event-card:hover { transform: translateY(-3px); }
+
+.event-card h3 {
+    margin: 0 0 5px 0;
+    color: #7121D1;
+}
+
+.event-card p { margin: 0; font-size:0.95rem; color:#000; }
+
+.modal {
+    position: fixed;
+    top:0; left:0; right:0; bottom:0;
+    background: rgba(0,0,0,0.5);
+    display:none;
+    justify-content:center;
+    align-items:center;
+    z-index: 9999;
+}
+
+.modal-content {
+    background: rgba(255,255,255,0.95);
+    padding:20px;
+    border-radius:14px;
+    max-width:500px;
+    width:90%;
+    position: relative;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+.modal-content h3 { margin-top:0; color:#7121D1; }
+
+.modal-close {
+    position:absolute;
+    top:10px;
+    right:15px;
+    cursor:pointer;
+    font-weight:bold;
+    font-size:1.2rem;
+    color:#7121D1;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Calendario Comité Avatel</h1>
+
+    <div id="month-navigation">
+        <button id="prev-month">&lt; Mes anterior</button>
+        <div id="month-name">Mes Año</div>
+        <button id="next-month">Mes siguiente &gt;</button>
+    </div>
+
+    <div id="calendar"></div>
+    <div id="events"><p>Selecciona un día para ver eventos</p></div>
+</div>
+
+<!-- Modal de detalle -->
+<div class="modal" id="event-modal">
+    <div class="modal-content">
+        <span class="modal-close" id="modal-close">&times;</span>
+        <h3 id="modal-title"></h3>
+        <p id="modal-time"></p>
+        <p id="modal-desc"></p>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ical.js/1.4.0/ical.min.js"></script>
+<script>
+const ICAL_URL = 'https://calendar.google.com/calendar/ical/comiteavatelmadrid%40gmail.com/public/basic.ics';
+let eventsByDate = {};
+let currentMonth, currentYear;
+
+// Generar calendario para un mes y año específicos
+function generateCalendar(month, year) {
+    currentMonth = month;
+    currentYear = year;
+
+    const monthNames = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+    document.getElementById('month-name').textContent = monthNames[month] + ' ' + year;
+
+    const calendar = document.getElementById('calendar');
+    calendar.innerHTML = '';
+    const firstDay = new Date(year, month, 1).getDay();
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+    for(let i=0; i<firstDay; i++) calendar.innerHTML += '<div></div>';
+
+    for(let d=1; d<=daysInMonth; d++){
+        const dateStr = `${year}-${(month+1).toString().padStart(2,'0')}-${d.toString().padStart(2,'0')}`;
+        const dayDiv = document.createElement('div');
+        dayDiv.className = 'day' + (eventsByDate[dateStr] ? ' has-event' : '');
+        dayDiv.textContent = d;
+        dayDiv.addEventListener('click', ()=> showEvents(dateStr));
+        calendar.appendChild(dayDiv);
+    }
+}
+
+// Mostrar eventos de un día
+function showEvents(dateStr){
+    const eventsDiv = document.getElementById('events');
+    eventsDiv.innerHTML = '';
+    const dayEvents = eventsByDate[dateStr];
+    if(!dayEvents || dayEvents.length===0){
+        eventsDiv.innerHTML = '<p>No hay eventos ese día.</p>';
+        return;
+    }
+    dayEvents.forEach(ev=>{
+        const card = document.createElement('div');
+        card.className = 'event-card';
+        card.innerHTML = `<h3>${ev.summary}</h3><p>${ev.time}</p>`;
+        card.addEventListener('click', ()=> openModal(ev));
+        eventsDiv.appendChild(card);
+    });
+}
+
+// Modal de evento
+function openModal(ev){
+    document.getElementById('modal-title').textContent = ev.summary;
+    document.getElementById('modal-time').textContent = ev.time;
+    document.getElementById('modal-desc').textContent = ev.description || 'Sin descripción';
+    document.getElementById('event-modal').style.display = 'flex';
+}
+document.getElementById('modal-close').addEventListener('click', ()=> {
+    document.getElementById('event-modal').style.display = 'none';
+});
+
+// Botones de navegación
+document.getElementById('prev-month').addEventListener('click', ()=>{
+    let month = currentMonth - 1;
+    let year = currentYear;
+    if(month < 0) { month = 11; year--; }
+    generateCalendar(month, year);
+});
+document.getElementById('next-month').addEventListener('click', ()=>{
+    let month = currentMonth + 1;
+    let year = currentYear;
+    if(month > 11) { month = 0; year++; }
+    generateCalendar(month, year);
+});
+
+// Cargar iCal
+fetch(ICAL_URL)
+.then(res=>res.text())
+.then(data=>{
+    const jcal = ICAL.parse(data);
+    const comp = new ICAL.Component(jcal);
+    const vevents = comp.getAllSubcomponents('vevent');
+
+    vevents.forEach(e=>{
+        const ev = new ICAL.Event(e);
+        const dateStr = ev.startDate.toString().slice(0,10); // yyyy-mm-dd
+        if(!eventsByDate[dateStr]) eventsByDate[dateStr] = [];
+        eventsByDate[dateStr].push({
+            summary: ev.summary,
+            description: ev.description,
+            time: ev.startDate.toString().slice(11,16) + (ev.endDate ? ' - ' + ev.endDate.toString().slice(11,16) : '')
+        });
+    });
+
+    const today = new Date();
+    generateCalendar(today.getMonth(), today.getFullYear());
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Galería Avatel</title>
+<link rel="stylesheet" href="style.css">
+
+<style>
+/* Contenedor central */
+.content {
+    text-align: center;
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 0;
+}
+
+/* Grid de miniaturas estilo tarjetas */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+    margin-top: 25px;
+}
+
+/* Cada tarjeta */
+.gallery-card {
+    background: rgba(255,255,255,0.85);
+    border-radius: 14px;
+    padding: 15px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+/* Hover para efecto “zoom” */
+.gallery-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+}
+
+/* Imagen de la tarjeta */
+.gallery-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+/* Pie de tarjeta: título */
+.gallery-card h2 {
+    color: #7121D1;
+    font-size: 1.2rem;
+    margin: 0 0 8px 0;
+}
+
+/* Pie de tarjeta: descripción */
+.gallery-card p {
+    font-size: 0.95rem;
+    line-height: 1.4;
+    margin: 0;
+}
+
+/* Responsive: columna única en móvil */
+@media (max-width: 768px) {
+    .gallery-grid {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+</head>
+<body>
+
+<div class="content">
+    <h1>Galería de imágenes</h1>
+
+
+    <div class="gallery-grid">
+        <div class="gallery-card">
+            <img src="images/galeria/1.jpg" alt="Imagen 1">
+            <h2>Evento 1</h2>
+            <p>Descripción breve de la imagen 1.</p>
+        </div>
+        <div class="gallery-card">
+            <img src="images/galeria/2.jpg" alt="Imagen 2">
+            <h2>Evento 2</h2>
+            <p>Descripción breve de la imagen 2.</p>
+        </div>
+        <div class="gallery-card">
+            <img src="images/galeria/3.jpg" alt="Imagen 3">
+            <h2>Evento 3</h2>
+            <p>Descripción breve de la imagen 3.</p>
+        </div>
+        <div class="gallery-card">
+            <img src="images/galeria/4.jpg" alt="Imagen 4">
+            <h2>Evento 4</h2>
+            <p>Descripción breve de la imagen 4.</p>
+        </div>
+        <div class="gallery-card">
+            <img src="images/galeria/5.jpg" alt="Imagen 5">
+            <h2>Evento 5</h2>
+            <p>Descripción breve de la imagen 5.</p>
+        </div>
+        <div class="gallery-card">
+            <img src="images/galeria/6.jpg" alt="Imagen 6">
+            <h2>Evento 6</h2>
+            <p>Descripción breve de la imagen 6.</p>
+        </div>
+        <div class="gallery-card">
+            <img src="images/galeria/7.jpg" alt="Imagen 7">
+            <h2>Evento 7</h2>
+            <p>Descripción breve de la imagen 7.</p>
+        </div>
+        <div class="gallery-card">
+            <img src="images/galeria/8.jpg" alt="Imagen 8">
+            <h2>Evento 8</h2>
+            <p>Descripción breve de la imagen 8.</p>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
